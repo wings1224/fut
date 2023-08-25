@@ -101,7 +101,7 @@ class User:
         start = 0
         while start<times:
             items, duplicate_items = self.buy(pack_id=pack_id)
-            sef.handle_pack(items, duplicate_items)
+            self.handle_pack(items, duplicate_items)
             start+=1
             print('buy pack {} end'.format(start))
             print('*'*15)
