@@ -11,4 +11,4 @@ G_HEADERS = {
     'Cookie': 'ealocale=en-us'
     }
 
-G_SID = 'c42acef4-785f-4e7e-9e1a-8b63835a65b2'
+G_SID = '89f930f6-129c-46ec-8251-b698841936f5'

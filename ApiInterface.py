@@ -44,24 +44,58 @@ class ApiInterface:
         
         return self.send_request(endpoint)
 
-    def club(self, count=90, sort="asc", sortby="value", start=0, type="player"):
+    def club(self, count=150, sort="asc", sortby="value", start=0, type="player"):
         # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
         endpoint = "game/fifa23/club"
         payload = {"count":count,"sort":sort,"sortBy":sortby,"start":start,"type":type}
         return self.send_request(endpoint, "POST", payload)
+    
+    def squad_init_get(self, sbc_id=None):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/sbs/challenge/{}/squad".format(sbc_id)
+        return self.send_request(endpoint, "GET")
+
+    def squad_init_post(self, sbc_id=None):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/sbs/challenge/{}".format(sbc_id)
+        return self.send_request(endpoint, "POST")
+
+    def squad(self, sbc_id, arr_items):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/sbs/challenge/{}/squad".format(sbc_id)
+        payload = {"players":[]}
+        for index, value in enumerate(arr_items):
+            # print("Index:", index, "Value:", value)
+            payload["players"].append({"index":index,"itemData":{"id":value,"dream":"false"}})
+
+        return self.send_request(endpoint, "PUT", payload)
+
+    def commit_suqad(self, sbc_id, arr_items):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/sbs/challenge/{}?skipUserSquadValidation=false".format(sbc_id)
+        payload = {"players":[]}
+        for index, value in enumerate(arr_items):
+            # print("Index:", index, "Value:", value)
+            payload["players"].append({"index":index,"itemData":{"id":value,"dream":"false"}})
+
+        return self.send_request(endpoint, "PUT", payload)
+
 
     # buy or check item
     # if pack_id is not null, post with payload like {"currency":"COINS", packId} to buy the pack item
     # else to get check the pack item you bought
     # return json {"itemData":[], "duplicateItemIdList":[]}
-    def purchased_items(self, pack_id=None, currency="COINS"):
+    def purchased_items(self, purchased_type, pack_id=None, currency="COINS"):
         self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
-        endpoint = "game/fifa23/purchased/items"
-        payload = {
-            "currency": currency,
-            "packId": pack_id
-        }
-        if pack_id is not None:
+        endpoint = "game/fifa23/purchased/items"        
+        if "buy" == purchased_type:
+            payload = {
+                "currency": currency,
+                "packId": pack_id
+            }
+            return self.send_request(endpoint, "POST", payload)
+        elif "open" == purchased_type:
+            payload = {"packId":pack_id,"untradeable":"true","usePreOrder":"true"}
             return self.send_request(endpoint, "POST", payload)
         else:
             return self.send_request(endpoint, "GET")
