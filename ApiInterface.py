@@ -41,6 +41,7 @@ class ApiInterface:
     def tradepile(self):
         # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
         endpoint = "game/fifa23/tradepile"
+        
         return self.send_request(endpoint)
 
     def club(self, count=90, sort="asc", sortby="value", start=0, type="player"):
