@@ -1,4 +1,5 @@
 import json
+import time
 import requests
 import config
 
@@ -10,23 +11,42 @@ class ApiInterface:
         self.sid = sid
 
     def send_request(self, endpoint, method="GET", data=None, params=None, headers=config.G_HEADERS):
-        try:
-            url = self.base_url + endpoint
-            payload = json.dumps(data)
-            headers["X-UT-SID"] = self.sid
-            response = requests.request(
-                method, url, data=payload, params=params, headers=headers)
-            response.raise_for_status()  # Raises HTTPError for bad responses (4xx and 5xx)
+        retries = 0
+        while retries < 3:
+            try:
+                url = self.base_url + endpoint
+                payload = json.dumps(data)
+                headers["X-UT-SID"] = self.sid
+                response = requests.request(
+                    method, url, data=payload, params=params, headers=headers)
+                # time.sleep(1)
+                response.raise_for_status()  # Raises HTTPError for bad responses (4xx and 5xx)
 
-            # HTTP status code 200 (OK)
-            if response.status_code == requests.codes.ok:
-                return response.text
-            else:
-                print(f"Request succeeded with status code {response.status_code}, but response content might be unexpected.")
-                return None
-        except requests.exceptions.RequestException as e:
-            print("Request failed:", e)
-            return None
+                # HTTP status code 200 (OK)
+                if response.status_code == requests.codes.ok:
+                    return response.text
+                else:
+                    print(f"Request succeeded with status code {response.status_code}, but response content might be unexpected.")
+                    return config.E_CLIENT_ERROR
+            except requests.exceptions.HTTPError as e:
+                print("Request failed:", e)
+                code = e.response.status_code
+                if code in [401, 403]:
+                    return config.E_CLIENT_ERROR
+                if code in [471]:
+                    return config.E_CLIENT_ERROR_471
+
+                print(f"Retrying in 3 seconds...")
+                time.sleep(3)
+                retries += 1
+            except requests.exceptions.RequestException as e:
+                print("Request failed:", e)
+                print(f"Retrying in 3 seconds...")
+                time.sleep(3)
+                retries += 1
+        
+        print(f"Failed to fetch data from {url} after 3 retries.")
+        return config.E_NETWORK_ERROR
     
     def usermassinfo(self):
         # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
@@ -85,8 +105,8 @@ class ApiInterface:
     # if pack_id is not null, post with payload like {"currency":"COINS", packId} to buy the pack item
     # else to get check the pack item you bought
     # return json {"itemData":[], "duplicateItemIdList":[]}
-    def purchased_items(self, purchased_type, pack_id=None, currency="COINS"):
-        self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+    def purchased_items(self, purchased_type=None, pack_id=None, currency="COINS"):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
         endpoint = "game/fifa23/purchased/items"        
         if "buy" == purchased_type:
             payload = {
@@ -101,7 +121,7 @@ class ApiInterface:
             return self.send_request(endpoint, "GET")
 
     def put_items(self, arr_items=None, misc_item_id=None):
-        self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
         endpoint = "game/fifa23/item"
         
         if misc_item_id is not None:
@@ -114,12 +134,17 @@ class ApiInterface:
             return self.send_request(endpoint, "PUT", payload)
 
     def delete_items(self, arr_items):
-        self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
         endpoint = "delete/game/fifa23/item"
         payload = {
             "itemId": arr_items
         }
         return self.send_request(endpoint, "POST", payload)
+
+    def playerpicks(self, id):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/playerpicks/item/{}/select".format(id)
+        return self.send_request(endpoint, "POST")
 
 
 if __name__ == "__main__":
