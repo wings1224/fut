@@ -26,6 +26,9 @@ class User:
         self.player_list = {}
         self.club()
 
+        self.check_pruchsed_items()
+
+    def check_pruchsed_items(self):
         res = self.api.purchased_items()
         if False == tools.is_valid_json(res):
             print('get items failed! err: {}'.format(res))
@@ -40,9 +43,9 @@ class User:
             for dup_item in duplicate_items:
                 dup_item_id = dup_item["itemId"]
                 for item in items:
-                    if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
                         print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
-                        return
+                        exit(1)
         self.handle_pack(items, duplicate_items)
 
     def club(self):
@@ -90,6 +93,11 @@ class User:
         if False == tools.is_valid_json(res):
             return False
         res = json.loads(res)
+        # '{"itemData":[{"id":147766805837,"reason":"Duplicate Item Type","pile":"club","success":false,"errorCode":472},{"id":147766805835,"reason":"Duplicate Item Type","pile":"club","success":false,"errorCode":472}]}'
+        for item in res['itemData']:
+            if False == item['success']:
+                print('put item failed. err: {}'.format(item['reason']))
+                return False
         return res
 
     def sell(self, arr_items):
@@ -203,25 +211,27 @@ class User:
                                 print('open pack No.{} failed! err: {}'.format(start+1, res))
                                 continue
                             res = json.loads(res)
-                    if "itemData" in res:
-                        items = res["itemData"]
-                    if "itemList" in res:
-                        items = res["itemList"]
-                        
-                    duplicate_items = None
-                    if "duplicateItemIdList" in res:
-                        duplicate_items = res['duplicateItemIdList']
-
-                    # high value player pause
-                    if duplicate_items is not None:
-                        for dup_item in duplicate_items:
-                            dup_item_id = dup_item["itemId"]
-                            for item in items:
-                                if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
-                                    print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
-                                    exit(0)
                             
-                    self.handle_pack(items, duplicate_items)
+                    # if "itemData" in res:
+                    #     items = res["itemData"]
+                    # if "itemList" in res:
+                    #     items = res["itemList"]
+                        
+                    # duplicate_items = None
+                    # if "duplicateItemIdList" in res:
+                    #     duplicate_items = res['duplicateItemIdList']
+
+                    # # high value player pause
+                    # if duplicate_items is not None:
+                    #     for dup_item in duplicate_items:
+                    #         dup_item_id = dup_item["itemId"]
+                    #         for item in items:
+                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                    #                 print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
+                    #                 exit(0)
+                            
+                    # self.handle_pack(items, duplicate_items)
+                    self.check_pruchsed_items()
                 print('open pack No.{} end.'.format(start+1))
 
             for index, id in enumerate(arr_items):
@@ -277,6 +287,7 @@ class User:
 
     def handle_pack(self, items, duplicate_items):
         arr_player = []
+        arr_player_trade = []
         list_player = {}
         list_other = {}
         if items is not None:
@@ -291,14 +302,24 @@ class User:
 
         list_dup_player = {}
         if duplicate_items is not None:
-            # arr_dup_player = []
             for item in duplicate_items:
                 if item["itemId"] in list_player:
-                    list_dup_player[item["itemId"]] = list_player.pop(item["itemId"])
-                    # arr_dup_player.append({"id":item.id, "pile":"trade"})
+                    player = list_player.pop(item["itemId"])
+                    if True == player['untradeable']:
+                        list_dup_player[item["itemId"]] = player
+                    else:
+                        arr_player_trade.append({"id":item["itemId"], "pile":"trade"})
+
+        if len(arr_player_trade) > 0:
+            res = self.put(arr_player_trade)
+            if False == res:
+                return res
 
         if len(arr_player) > 0:
-            self.put(arr_player)
+            res = self.put(arr_player)
+            if False == res:
+                return res
+            
             self.player_list.update(list_player)
             with open('player_list2.json', 'w') as file:
                 file.write(json.dumps(self.player_list))
@@ -315,12 +336,4 @@ class User:
 
 if __name__ == "__main__":
     # 创建一个用户实例
-    user1 = User(money=100, players_list=["item1", "item2"], market_list={
-                 "item3": 50, "item4": 30})
-
-    # 进行操作示例
-    user1.query()
-    user1.buy("item3")
-    user1.put("item1", 70)
-    user1.sell("item2")
-    user1.query()
+    user1 = User()
