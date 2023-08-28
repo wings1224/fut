@@ -1,0 +1,269 @@
+items
+https://utas.mob.v1.fut.ea.com/ut/game/fifa23/purchased/items
+
+{
+    "itemData": [
+        {
+            "id": 145601936840,
+            "timestamp": 1693040702,
+            "formation": "f433",
+            "untradeable": true,
+            "assetId": 0,
+            "rating": 99,
+            "itemType": "misc",
+            "resourceId": 5004206,
+            "owners": 1,
+            "discardValue": 0,
+            "itemState": "free",
+            "cardsubtypeid": 237,
+            "lastSalePrice": 0,
+            "statsList": [],
+            "lifetimeStats": [],
+            "attributeList": [],
+            "teamid": 0,
+            "rareflag": 1,
+            "leagueId": 0,
+            "pile": 6,
+            "cardassetid": 44,
+            "name": "PlayerPickItemName23_4133",
+            "weightrare": 0,
+            "amount": 4133,
+            "description": "1 of 3 82+ RARE GOLD PLAYERS",
+            "detaildescription": "PlayerPickItemDetailDesc23_4133",
+            "marketDataMinPrice": 150,
+            "marketDataMaxPrice": 5000,
+            "resourceGameYear": 2023
+        }
+    ]
+}
+
+open
+https://utas.mob.v1.fut.ea.com/ut/game/fifa23/item/145601936840
+
+{
+    "itemData": [
+        {
+            "id": 1,
+            "timestamp": 0,
+            "formation": "f433",
+            "untradeable": true,
+            "assetId": 189575,
+            "rating": 84,
+            "itemType": "player",
+            "resourceId": 189575,
+            "owners": 0,
+            "discardValue": 0,
+            "cardsubtypeid": 2,
+            "lastSalePrice": 0,
+            "injuryType": "none",
+            "injuryGames": 0,
+            "preferredPosition": "LM",
+            "statsList": [],
+            "lifetimeStats": [],
+            "contract": 7,
+            "teamid": 448,
+            "rareflag": 1,
+            "playStyle": 250,
+            "leagueId": 53,
+            "loyaltyBonus": 1,
+            "pile": 0,
+            "nation": 45,
+            "resourceGameYear": 2023,
+            "guidAssetId": "6f312dc0-40c1-4a5f-8446-044266bef5b1",
+            "groups": [
+                4
+            ],
+            "attributeArray": [
+                81,
+                77,
+                82,
+                87,
+                51,
+                61
+            ],
+            "skillmoves": 3,
+            "weakfootabilitytypecode": 3,
+            "attackingworkrate": 2,
+            "defensiveworkrate": 0,
+            "preferredfoot": 1,
+            "possiblePositions": [
+                "LM",
+                "CAM",
+                "LW"
+            ]
+        },
+        {
+            "id": 2,
+            "timestamp": 0,
+            "formation": "f433",
+            "untradeable": true,
+            "assetId": 227796,
+            "rating": 82,
+            "itemType": "player",
+            "resourceId": 227796,
+            "owners": 0,
+            "discardValue": 0,
+            "cardsubtypeid": 3,
+            "lastSalePrice": 0,
+            "injuryType": "none",
+            "injuryGames": 0,
+            "preferredPosition": "LW",
+            "statsList": [],
+            "lifetimeStats": [],
+            "contract": 7,
+            "teamid": 5,
+            "rareflag": 1,
+            "playStyle": 250,
+            "leagueId": 13,
+            "loyaltyBonus": 1,
+            "pile": 0,
+            "nation": 95,
+            "resourceGameYear": 2023,
+            "guidAssetId": "c7da6370-b0a0-4d1a-b912-1015506ee974",
+            "groups": [
+                4
+            ],
+            "attributeArray": [
+                87,
+                71,
+                73,
+                86,
+                37,
+                59
+            ],
+            "skillmoves": 3,
+            "weakfootabilitytypecode": 4,
+            "attackingworkrate": 0,
+            "defensiveworkrate": 0,
+            "preferredfoot": 1,
+            "possiblePositions": [
+                "LM",
+                "RW",
+                "LW"
+            ]
+        },
+        {
+            "id": 3,
+            "timestamp": 0,
+            "formation": "f433",
+            "untradeable": true,
+            "assetId": 241464,
+            "rating": 83,
+            "itemType": "player",
+            "resourceId": 241464,
+            "owners": 0,
+            "discardValue": 0,
+            "cardsubtypeid": 1,
+            "lastSalePrice": 0,
+            "injuryType": "none",
+            "injuryGames": 0,
+            "preferredPosition": "CB",
+            "statsList": [],
+            "lifetimeStats": [],
+            "contract": 7,
+            "teamid": 483,
+            "rareflag": 1,
+            "playStyle": 250,
+            "leagueId": 53,
+            "loyaltyBonus": 1,
+            "pile": 0,
+            "nation": 45,
+            "resourceGameYear": 2023,
+            "guidAssetId": "76ed35ca-3213-4f6f-8b93-36a0ccc95db5",
+            "groups": [
+                4
+            ],
+            "attributeArray": [
+                73,
+                38,
+                67,
+                70,
+                84,
+                81
+            ],
+            "skillmoves": 1,
+            "weakfootabilitytypecode": 3,
+            "attackingworkrate": 0,
+            "defensiveworkrate": 2,
+            "preferredfoot": 2,
+            "possiblePositions": [
+                "CB"
+            ]
+        }
+    ],
+    "duplicateItemIdList": [
+        {
+            "itemId": 1,
+            "duplicateItemId": 145462964432
+        }
+    ]
+}
+
+pick
+https://utas.mob.v1.fut.ea.com/ut/game/fifa23/playerpicks/item/189575/select
+
+{
+    "id": 145675397953,
+    "timestamp": 1693046214,
+    "formation": "f3412",
+    "untradeable": true,
+    "assetId": 189575,
+    "rating": 84,
+    "itemType": "player",
+    "resourceId": 189575,
+    "owners": 1,
+    "discardValue": 0,
+    "itemState": "free",
+    "cardsubtypeid": 2,
+    "lastSalePrice": 0,
+    "injuryType": "head",
+    "injuryGames": 0,
+    "preferredPosition": "LM",
+    "contract": 7,
+    "teamid": 448,
+    "rareflag": 1,
+    "playStyle": 250,
+    "leagueId": 53,
+    "assists": 0,
+    "lifetimeAssists": 0,
+    "loyaltyBonus": 1,
+    "pile": 6,
+    "nation": 45,
+    "resourceGameYear": 2023,
+    "guidAssetId": "6f312dc0-40c1-4a5f-8446-044266bef5b1",
+    "groups": [
+        4
+    ],
+    "attributeArray": [
+        81,
+        77,
+        82,
+        87,
+        51,
+        61
+    ],
+    "statsArray": [
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "lifetimeStatsArray": [
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "skillmoves": 3,
+    "weakfootabilitytypecode": 3,
+    "attackingworkrate": 2,
+    "defensiveworkrate": 0,
+    "preferredfoot": 1,
+    "possiblePositions": [
+        "LM",
+        "CAM",
+        "LW"
+    ]
+}
