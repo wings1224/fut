@@ -1,0 +1,60 @@
+$session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+$session.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62"
+Invoke-WebRequest -UseBasicParsing -Uri "https://utas.mob.v1.fut.ea.com/ut/game/fifa23/trade/status/lite?tradeIds=507501531095" `
+-WebSession $session `
+-Headers @{
+"Accept"="*/*"
+  "Accept-Encoding"="gzip, deflate, br"
+  "Accept-Language"="zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+  "Cache-Control"="no-cache"
+  "Origin"="https://www.ea.com"
+  "Referer"="https://www.ea.com/"
+  "Sec-Fetch-Dest"="empty"
+  "Sec-Fetch-Mode"="cors"
+  "Sec-Fetch-Site"="same-site"
+  "X-UT-SID"="047130ce-c7a7-4625-b514-0f96a70a5330"
+  "sec-ch-ua"="`"Chromium`";v=`"116`", `"Not)A;Brand`";v=`"24`", `"Microsoft Edge`";v=`"116`""
+  "sec-ch-ua-mobile"="?0"
+  "sec-ch-ua-platform"="`"macOS`""
+} `
+-ContentType "application/json"
+
+tradeIds=507501531095
+
+{
+    "auctionInfo": [
+        {
+            "tradeId": 507501531095,
+            "itemData": {
+                "id": 148588064779,
+                "timestamp": 0,
+                "untradeable": false,
+                "resourceId": 0,
+                "owners": 0,
+                "cardsubtypeid": 0,
+                "lastSalePrice": 0,
+                "morale": 0,
+                "fitness": 0,
+                "injuryGames": 0,
+                "statsList": [],
+                "lifetimeStats": [],
+                "training": 0,
+                "contract": 0,
+                "suspension": 0,
+                "attributeList": [],
+                "pile": 0,
+                "nation": 0,
+                "resourceGameYear": 2023
+            },
+            "tradeState": "active",
+            "buyNowPrice": 10000,
+            "currentBid": 150,
+            "watched": true,
+            "bidState": "highest",
+            "startingBid": 150,
+            "expires": 3,
+            "tradeIdStr": "507501531095",
+            "tradeOwner": false
+        }
+    ]
+}

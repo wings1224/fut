@@ -1,0 +1,131 @@
+$session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+$session.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62"
+Invoke-WebRequest -UseBasicParsing -Uri "https://utas.mob.v1.fut.ea.com/ut/game/fifa23/trade/507501423980/bid" `
+-Method "PUT" `
+-WebSession $session `
+-Headers @{
+"Accept"="*/*"
+  "Accept-Encoding"="gzip, deflate, br"
+  "Accept-Language"="zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+  "Origin"="https://www.ea.com"
+  "Referer"="https://www.ea.com/"
+  "Sec-Fetch-Dest"="empty"
+  "Sec-Fetch-Mode"="cors"
+  "Sec-Fetch-Site"="same-site"
+  "X-UT-SID"="047130ce-c7a7-4625-b514-0f96a70a5330"
+  "sec-ch-ua"="`"Chromium`";v=`"116`", `"Not)A;Brand`";v=`"24`", `"Microsoft Edge`";v=`"116`""
+  "sec-ch-ua-mobile"="?0"
+  "sec-ch-ua-platform"="`"macOS`""
+} `
+-ContentType "application/json" `
+-Body "{`"bid`":1000}"
+
+{"bid":1000}
+
+{
+    "credits": 1041561,
+    "auctionInfo": [
+        {
+            "tradeId": 507501423980,
+            "itemData": {
+                "id": 146793494904,
+                "timestamp": 1693132906,
+                "formation": "f3412",
+                "untradeable": false,
+                "assetId": 52679,
+                "rating": 63,
+                "itemType": "player",
+                "resourceId": 52679,
+                "owners": 1,
+                "discardValue": 47,
+                "itemState": "forSale",
+                "cardsubtypeid": 0,
+                "lastSalePrice": 0,
+                "injuryType": "none",
+                "injuryGames": 0,
+                "preferredPosition": "GK",
+                "contract": 7,
+                "teamid": 15048,
+                "rareflag": 1,
+                "playStyle": 273,
+                "leagueId": 61,
+                "assists": 0,
+                "lifetimeAssists": 0,
+                "loyaltyBonus": 1,
+                "pile": 5,
+                "nation": 25,
+                "resourceGameYear": 2023,
+                "groups": [
+                    4
+                ],
+                "attributeArray": [
+                    63,
+                    61,
+                    62,
+                    63,
+                    36,
+                    63
+                ],
+                "statsArray": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "lifetimeStatsArray": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "skillmoves": 0,
+                "weakfootabilitytypecode": 3,
+                "attackingworkrate": 0,
+                "defensiveworkrate": 0,
+                "preferredfoot": 2,
+                "possiblePositions": [
+                    "GK"
+                ]
+            },
+            "tradeState": "active",
+            "buyNowPrice": 1100,
+            "currentBid": 1000,
+            "offers": 0,
+            "watched": true,
+            "bidState": "highest",
+            "startingBid": 1000,
+            "confidenceValue": 100,
+            "expires": 29,
+            "sellerName": "FIFA UT",
+            "sellerEstablished": 0,
+            "sellerId": 0,
+            "tradeOwner": false,
+            "tradeIdStr": "507501423980"
+        }
+    ],
+    "bidTokens": {},
+    "currencies": [
+        {
+            "name": "COINS",
+            "funds": 1041561,
+            "finalFunds": 1041561
+        },
+        {
+            "name": "POINTS",
+            "funds": 0,
+            "finalFunds": 0
+        },
+        {
+            "name": "DRAFT_TOKEN",
+            "funds": 1,
+            "finalFunds": 1
+        },
+        {
+            "name": "STAR",
+            "funds": 16,
+            "finalFunds": 16
+        }
+    ]
+}
