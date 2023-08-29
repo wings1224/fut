@@ -1,0 +1,37 @@
+$session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+$session.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62"
+Invoke-WebRequest -UseBasicParsing -Uri "https://utas.mob.v1.fut.ea.com/ut/game/fifa23/auctionhouse" `
+-Method "POST" `
+-WebSession $session `
+-Headers @{
+"Accept"="*/*"
+  "Accept-Encoding"="gzip, deflate, br"
+  "Accept-Language"="zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+  "Origin"="https://www.ea.com"
+  "Referer"="https://www.ea.com/"
+  "Sec-Fetch-Dest"="empty"
+  "Sec-Fetch-Mode"="cors"
+  "Sec-Fetch-Site"="same-site"
+  "X-UT-SID"="17e5f24a-1555-4367-a63d-f476a05d8a67"
+  "sec-ch-ua"="`"Chromium`";v=`"116`", `"Not)A;Brand`";v=`"24`", `"Microsoft Edge`";v=`"116`""
+  "sec-ch-ua-mobile"="?0"
+  "sec-ch-ua-platform"="`"macOS`""
+} `
+-ContentType "application/json" `
+-Body "{`"buyNowPrice`":200,`"duration`":3600,`"itemData`":{`"id`":148146951627},`"startingBid`":150}"
+
+{"buyNowPrice":200,"duration":3600,"itemData":{"id":148146951627},"startingBid":150}
+
+{
+    "id": 507501406849,
+    "idStr": "507501406849",
+    "dynamicObjectivesUpdates": {
+        "needsGroupsRefresh": false,
+        "needsAutoClaim": false,
+        "needsMilestonesAutoClaim": false,
+        "progressOnAcademyObjectives": {
+            "completedObjectivesCount": 0,
+            "hasReachedLevel": false
+        }
+    }
+}
