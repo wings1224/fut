@@ -96,6 +96,9 @@ class ApiInterface:
         payload = {"players":[]}
         for index, value in enumerate(arr_items):
             # print("Index:", index, "Value:", value)
+            if 3040 == sbc_id and 9 == index:
+                payload["players"].append({"index":index,"itemData":{"id":0,"dream":"false"}})
+                continue
             payload["players"].append({"index":index,"itemData":{"id":value,"dream":"false"}})
 
         return self.send_request(endpoint, "PUT", payload)
