@@ -28,11 +28,11 @@ if __name__ == "__main__":
         # ultimate silver upgrade
         user.sbc(times=3,sbc_id=3056)
         # futties crafting upgrade 
-        # user.sbc(times=30,sbc_id=3263,need_open=False)
+        user.sbc(times=30,sbc_id=3263,need_open=False)
         # 82+ pick
         # user.sbc(times=2,sbc_id=3394,need_open=False)
         # 80+ pick
-        user.sbc(times=1,sbc_id=3340,need_open=False)
+        # user.sbc(times=1,sbc_id=3340,need_open=False)
     
     
     # with open('times.txt', 'w') as file:
