@@ -32,7 +32,7 @@ if __name__ == "__main__":
         # 82+ pick
         # user.sbc(times=2,sbc_id=3394,need_open=False)
         # 80+ pick
-        user.sbc(times=1,sbc_id=3040,need_open=False)
+        user.sbc(times=1,sbc_id=3340,need_open=False)
     
     
     # with open('times.txt', 'w') as file:
