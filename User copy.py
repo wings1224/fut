@@ -44,7 +44,7 @@ class User:
             for dup_item in duplicate_items:
                 dup_item_id = dup_item["itemId"]
                 for item in items:
-                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>81 and dup_item_id == item["id"]:
                         print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                         exit(1)
         self.handle_pack(items, duplicate_items)
@@ -227,7 +227,7 @@ class User:
                     #     for dup_item in duplicate_items:
                     #         dup_item_id = dup_item["itemId"]
                     #         for item in items:
-                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>81 and dup_item_id == item["id"]:
                     #                 print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                     #                 exit(0)
                             
@@ -276,7 +276,7 @@ class User:
                 for dup_item in duplicate_items:
                     dup_item_id = dup_item["itemId"]
                     for item in items:
-                        if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                        if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>81 and dup_item_id == item["id"]:
                             print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                             return duplicate_items
                 
