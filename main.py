@@ -17,12 +17,14 @@ if __name__ == "__main__":
         print('*'*20)
         print("now is {} times".format(times))
         # sbc and open pack 
-        user.aotobuypack(pack_id=101, times=30)
+        # user.aotobuypack(pack_id=101, times=30)
         # broze 3054
         # user.sbc3054(times=10)
-        # user.sbc(times=20,sbc_id=3054)
-        # user.sbc(times=15,sbc_id=3056)
-        # user.sbc(times=15,sbc_id=3263,need_open=False)
+        # user.sbc(times=25,sbc_id=3263,need_open=False)
+        user.sbc(times=55,sbc_id=3056)
+        user.sbc(times=45,sbc_id=3054)
+        user.sbc(times=25,sbc_id=3056)
+        user.sbc(times=5,sbc_id=3263,need_open=False)
         # 82+ pick
         # user.sbc(times=2,sbc_id=3394,need_open=False)
     

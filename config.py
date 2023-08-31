@@ -11,9 +11,11 @@ G_HEADERS = {
     'Cookie': 'ealocale=en-us'
     }
 
-G_SID = '49d4d8d8-905d-4bda-b637-67855f87597c'
+G_SID = 'f14cb96a-f83b-48bf-8d7c-7693ab356275'
 
 # ERROR CODE
 E_NETWORK_ERROR = 100
 E_CLIENT_ERROR = 101
 E_CLIENT_ERROR_471 = 471
+
+G_HIGH_OVR_LIMIT = 84

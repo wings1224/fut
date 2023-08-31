@@ -43,7 +43,7 @@ class User:
             for dup_item in duplicate_items:
                 dup_item_id = dup_item["itemId"]
                 for item in items:
-                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_LIMIT and dup_item_id == item["id"]:
                         print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                         exit(1)
         self.handle_pack(items, duplicate_items)
@@ -226,7 +226,7 @@ class User:
                     #     for dup_item in duplicate_items:
                     #         dup_item_id = dup_item["itemId"]
                     #         for item in items:
-                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_LIMIT and dup_item_id == item["id"]:
                     #                 print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                     #                 exit(0)
                             
@@ -275,7 +275,7 @@ class User:
                 for dup_item in duplicate_items:
                     dup_item_id = dup_item["itemId"]
                     for item in items:
-                        if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>88 and dup_item_id == item["id"]:
+                        if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_LIMIT and dup_item_id == item["id"]:
                             print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                             return duplicate_items
                 
@@ -317,12 +317,13 @@ class User:
 
         if len(arr_player) > 0:
             res = self.put(arr_player)
-            if False == res:
-                return res
+            # if False == res:
+            #     return res
             
-            self.player_list.update(list_player)
-            with open('player_list2.json', 'w') as file:
-                file.write(json.dumps(self.player_list))
+        self.player_list.update(list_player)
+        with open('player_list2.json', 'w') as file:
+            file.write(json.dumps(self.player_list))
+            
         if len(list_other) > 0 or len(list_dup_player) > 0:
             self.sell(list(list_other.keys())+list(list_dup_player.keys()))
             if len(list_dup_player) > 0:
