@@ -9,15 +9,15 @@ if __name__ == "__main__":
     user = User(config.G_SID, api)
 
     times = 0
-    with open('times.txt', 'r') as file:
-        times = int(file.read())
+    # with open('times.txt', 'r') as file:
+    #     times = int(file.read())
 
     while True:
         times += 1
         print('*'*20)
         print("now is {} times".format(times))
         # sbc and open pack 
-        # user.aotobuypack(pack_id=101, times=30)
+        user.aotobuypack(pack_id=101, times=30)
         # broze 3054
         # user.sbc3054(times=10)
         # user.sbc(times=25,sbc_id=3263,need_open=False)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         # user.sbc(times=2,sbc_id=3394,need_open=False)
     
     
-    with open('times.txt', 'w') as file:
-        file.write(str(times))
+    # with open('times.txt', 'w') as file:
+    #     file.write(str(times))
     
 1

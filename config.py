@@ -11,7 +11,7 @@ G_HEADERS = {
     'Cookie': 'ealocale=en-us'
     }
 
-G_SID = 'f14cb96a-f83b-48bf-8d7c-7693ab356275'
+G_SID = '49d4d8d8-905d-4bda-b637-67855f87597c'
 
 # ERROR CODE
 E_NETWORK_ERROR = 100
