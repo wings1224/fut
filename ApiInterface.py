@@ -11,6 +11,7 @@ class ApiInterface:
         self.sid = sid
 
     def send_request(self, endpoint, method="GET", data=None, params=None, headers=config.G_HEADERS):
+        time.sleep(1)
         retries = 0
         while retries < 3:
             try:
@@ -86,6 +87,12 @@ class ApiInterface:
         payload = {"players":[]}
         for index, value in enumerate(arr_items):
             # print("Index:", index, "Value:", value)
+            if 3340 == sbc_id and 9 == index:
+                payload["players"].append({"index":index,"itemData":{"id":0,"dream":"false"}})
+                continue
+            if sbc_id in [3503, 3500] and index not in [0,2,3] :
+                payload["players"].append({"index":index,"itemData":{"id":0,"dream":"false"}})
+                continue
             payload["players"].append({"index":index,"itemData":{"id":value,"dream":"false"}})
 
         return self.send_request(endpoint, "PUT", payload)
@@ -96,7 +103,10 @@ class ApiInterface:
         payload = {"players":[]}
         for index, value in enumerate(arr_items):
             # print("Index:", index, "Value:", value)
-            if 3040 == sbc_id and 9 == index:
+            if 3340 == sbc_id and 9 == index:
+                payload["players"].append({"index":index,"itemData":{"id":0,"dream":"false"}})
+                continue
+            if sbc_id in [3503, 3500] and index not in [0,2,3] :
                 payload["players"].append({"index":index,"itemData":{"id":0,"dream":"false"}})
                 continue
             payload["players"].append({"index":index,"itemData":{"id":value,"dream":"false"}})

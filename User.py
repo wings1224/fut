@@ -10,11 +10,13 @@ class User:
         self.api = result = api if api is not None else ApiInterface(
             "https://utas.mob.v1.fut.ea.com/ut/", sid)
         self.cfg_sbc = {
-            3054: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
+            3503: {"player_total_numbers": 22, "player_numbers": 3, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
+            , 3500: {"player_total_numbers": 22, "player_numbers": 3, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
+            , 3054: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
             , 3056: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
             , 3263: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":11, "rare_player_numbers":0}
             , 3394: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":6, "rare_player_numbers":5}
-            , 3340: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":11, "rare_player_numbers":0}
+            , 3340: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 80}
         }
         # init accountinfo
         # money
@@ -44,7 +46,7 @@ class User:
             for dup_item in duplicate_items:
                 dup_item_id = dup_item["itemId"]
                 for item in items:
-                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_LIMIT and dup_item_id == item["id"]:
+                    if "player" == item["itemType"] and True == item['untradeable'] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_PLAYER and dup_item_id == item["id"]:
                         print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                         exit(1)
         self.handle_pack(items, duplicate_items)
@@ -227,7 +229,7 @@ class User:
                     #     for dup_item in duplicate_items:
                     #         dup_item_id = dup_item["itemId"]
                     #         for item in items:
-                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_LIMIT and dup_item_id == item["id"]:
+                    #             if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_PLAYER and dup_item_id == item["id"]:
                     #                 print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                     #                 exit(0)
                             
@@ -276,7 +278,7 @@ class User:
                 for dup_item in duplicate_items:
                     dup_item_id = dup_item["itemId"]
                     for item in items:
-                        if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_LIMIT and dup_item_id == item["id"]:
+                        if "player" == item["itemType"] and item["rareflag"] not in [0, 1] and item["rating"]>config.G_HIGH_OVR_PLAYER and dup_item_id == item["id"]:
                             print('high value player(rareflag:{}, rating:{}).'.format(item["rareflag"], item["rating"]))
                             return duplicate_items
                 
@@ -293,9 +295,16 @@ class User:
         list_other = {}
         if items is not None:
             for item in items:
+                exist_flag = False
                 if "player" == item["itemType"]:
-                    arr_player.append({"id": item["id"], "pile": "club"})
                     list_player[item["id"]] = item
+                    if duplicate_items is not None:
+                        for dup in duplicate_items:
+                            if item["id"] == dup['itemId']:
+                                exist_flag = True
+                                break
+                    if False == exist_flag:
+                        arr_player.append({"id": item["id"], "pile": "club"})
                 # elif "misc" == item["itemType"]:
                 #     self.put(misc_item_id=item["id"])
                 else:
