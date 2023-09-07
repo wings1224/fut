@@ -11,7 +11,7 @@ class ApiInterface:
         self.sid = sid
 
     def send_request(self, endpoint, method="GET", data=None, params=None, headers=config.G_HEADERS):
-        time.sleep(1)
+        # time.sleep(1)
         retries = 0
         while retries < 3:
             try:
@@ -30,20 +30,20 @@ class ApiInterface:
                     print(f"Request succeeded with status code {response.status_code}, but response content might be unexpected.")
                     return config.E_CLIENT_ERROR
             except requests.exceptions.HTTPError as e:
-                print("Request failed:", e)
+                print("HTTPError Request failed:", e)
                 code = e.response.status_code
-                if code in [401, 403]:
+                if code in [401, 403, 410]:
                     return config.E_CLIENT_ERROR
                 if code in [471]:
                     return config.E_CLIENT_ERROR_471
 
-                print(f"Retrying in 3 seconds...")
-                time.sleep(3)
+                print(f"HTTPError Retrying in 3 seconds...")
+                time.sleep(2)
                 retries += 1
             except requests.exceptions.RequestException as e:
                 print("Request failed:", e)
                 print(f"Retrying in 3 seconds...")
-                time.sleep(3)
+                time.sleep(2)
                 retries += 1
         
         print(f"Failed to fetch data from {url} after 3 retries.")
@@ -64,6 +64,26 @@ class ApiInterface:
         endpoint = "game/fifa23/tradepile"
         
         return self.send_request(endpoint)
+
+    def sold(self):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/trade/sold"
+        
+        return self.send_request(endpoint,method="DELETE")
+
+    def re_list(self):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/auctionhouse/relist"
+        
+        return self.send_request(endpoint,method="PUT")
+
+    def auctionhouse(self, startingBid=None, buyNowPrice=None, duration=3600, id=None):
+        if startingBid is None or buyNowPrice is None or id is None:
+            return False
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/auctionhouse"
+        payload = {"buyNowPrice":buyNowPrice,"duration":duration,"itemData":{"id":id},"startingBid":startingBid}
+        return self.send_request(endpoint, "POST", payload)
 
     def club(self, count=150, sort="asc", sortby="value", start=0, type="player"):
         # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
@@ -162,4 +182,5 @@ class ApiInterface:
 
 if __name__ == "__main__":
     # 创建 API 接口实例
-    api = ApiInterface(base_url="https://api.example.com")
+    api = ApiInterface("https://utas.mob.v1.fut.ea.com/ut/", config.G_SID)
+    api.re_list()

@@ -1,0 +1,46 @@
+https://utas.mob.v1.fut.ea.com/ut/game/fifa23/auctionhouse/relist
+
+PUT
+
+response:
+{
+    "tradeIdList": [
+        {
+            "id": 507756565197,
+            "idStr": "507756565197"
+        },
+        {
+            "id": 507756612477,
+            "idStr": "507756612477"
+        },
+        {
+            "id": 507756615607,
+            "idStr": "507756615607"
+        },
+        {
+            "id": 507756618804,
+            "idStr": "507756618804"
+        },
+        {
+            "id": 507756565204,
+            "idStr": "507756565204"
+        },
+        {
+            "id": 507756590379,
+            "idStr": "507756590379"
+        },
+        {
+            "id": 507756565209,
+            "idStr": "507756565209"
+        }
+    ],
+    "dynamicObjectivesUpdates": {
+        "needsGroupsRefresh": false,
+        "needsAutoClaim": false,
+        "needsMilestonesAutoClaim": false,
+        "progressOnAcademyObjectives": {
+            "completedObjectivesCount": 0,
+            "hasReachedLevel": false
+        }
+    }
+}
