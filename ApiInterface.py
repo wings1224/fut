@@ -84,6 +84,13 @@ class ApiInterface:
         endpoint = "game/fifa23/auctionhouse"
         payload = {"buyNowPrice":buyNowPrice,"duration":duration,"itemData":{"id":id},"startingBid":startingBid}
         return self.send_request(endpoint, "POST", payload)
+    
+    def transfermarket(self, minb):
+        # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
+        endpoint = "game/fifa23/transfermarket"
+        params = 'num=21&start=0&type=player&definitionId=50545748&minb={}'.format(minb)
+        return self.send_request(endpoint, "GET", params=params)
+
 
     def club(self, count=150, sort="asc", sortby="value", start=0, type="player"):
         # self.base_url = 'https://utas.mob.v1.fut.ea.com/ut/'
@@ -180,7 +187,14 @@ class ApiInterface:
         return self.send_request(endpoint, "POST")
 
 
+from time import sleep
+
 if __name__ == "__main__":
     # 创建 API 接口实例
     api = ApiInterface("https://utas.mob.v1.fut.ea.com/ut/", config.G_SID)
-    api.re_list()
+    times = 0
+    while True:
+        times+=1
+        print(times)
+        api.transfermarket(minb=200+100*times)
+        sleep(1)
