@@ -16,7 +16,7 @@ class User:
             , 3056: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
             , 3263: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":11, "rare_player_numbers":0}
             , 3394: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":6, "rare_player_numbers":5}
-            , 3340: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 80}
+            , 3340: {"player_total_numbers": 22, "player_numbers": 10, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 80}
         }
         # init accountinfo
         # money
@@ -157,37 +157,56 @@ class User:
         while start < times:
             arr_items = []
             i = 0
+            total = 0
             common_player_numbers = 0
             rare_player_numbers = 0
             players = self.player_list
             for key, value in players.items():
+                if total > self.cfg_sbc[sbc_id]['player_total_numbers']:
+                    break
+                
+                if 3340 == sbc_id and 9 == total:
+                    arr_items.append(0)
+                    total += 1
+                    
+                if sbc_id in [3503, 3500] and total not in [0,2,3] :
+                    arr_items.append(0)
+                    total += 1
+                
                 if value['rating'] <= self.cfg_sbc[sbc_id]['max_ovr'] and value['rating'] >= self.cfg_sbc[sbc_id]['min_ovr'] and ('loans' not in value):
                     # handle rare numbers
                     if "common_player_numbers" in self.cfg_sbc[sbc_id] and common_player_numbers < self.cfg_sbc[sbc_id]['common_player_numbers'] and 0 == value['rareflag']:
                         arr_items.append(key)
+                        total += 1
                         i += 1
                         common_player_numbers+=1
-                        if self.cfg_sbc[sbc_id]['player_total_numbers'] < i:
+                        if self.cfg_sbc[sbc_id]['player_numbers'] <= i:
                             break
 
                     if "rare_player_numbers" in self.cfg_sbc[sbc_id] and rare_player_numbers < self.cfg_sbc[sbc_id]['rare_player_numbers'] and 1 == value['rareflag']:
                         arr_items.append(key)
+                        total += 1
                         i += 1
                         rare_player_numbers+=1
-                        if self.cfg_sbc[sbc_id]['player_total_numbers'] < i:
+                        if self.cfg_sbc[sbc_id]['player_numbers'] <= i:
                             break
 
                     if "common_player_numbers" not in self.cfg_sbc[sbc_id] and "rare_player_numbers" not in self.cfg_sbc[sbc_id]:
                         arr_items.append(key)
+                        total += 1
                         i += 1
                         rare_player_numbers+=1
-                        if self.cfg_sbc[sbc_id]['player_total_numbers'] < i:
+                        if self.cfg_sbc[sbc_id]['player_numbers'] <= i:
                             break
                 
 
             if self.cfg_sbc[sbc_id]['player_numbers'] > i:
                 print("not enough players for sbc {}.".format(sbc_id))
                 break
+
+            while total <= self.cfg_sbc[sbc_id]['player_total_numbers']:
+                arr_items.append(0)
+                total += 1
 
             self.api.squad_init_post(sbc_id=sbc_id)
             self.squad(sbc_id=sbc_id, arr_items=arr_items)
@@ -238,12 +257,16 @@ class User:
                 print('open pack No.{} end.'.format(start+1))
 
             for index, id in enumerate(arr_items):
+                if 0 == id:
+                    continue
                 if index < self.cfg_sbc[sbc_id]['player_numbers']:
                     self.player_list.pop(id)
                 else:
                     break
             start += 1
             print('*'*20)
+            self.club()
+
     
     def handle_item(self):
         res = self.api.purchased_items()
