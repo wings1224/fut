@@ -19,3 +19,12 @@ E_CLIENT_ERROR = 101
 E_CLIENT_ERROR_471 = 471
 
 G_HIGH_OVR_PLAYER = 82
+G_SBC_CFG = {
+  3503: {"player_total_numbers": 22, "player_numbers": 3, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
+, 3500: {"player_total_numbers": 22, "player_numbers": 3, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
+, 3054: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
+, 3056: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
+, 3263: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":11, "rare_player_numbers":0}
+, 3394: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":6, "rare_player_numbers":5}
+, 3340: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 80}
+}

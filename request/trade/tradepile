@@ -19,6 +19,102 @@ Invoke-WebRequest -UseBasicParsing -Uri "https://utas.mob.v1.fut.ea.com/ut/game/
 } `
 -ContentType "application/json"
 
+{
+    "credits": 957235,
+    "auctionInfo":[
+        {
+            "tradeId": 507487112179,
+            "itemData": {
+                "id": 148146951627,
+                "timestamp": 1693235569,
+                "formation": "f3412",
+                "untradeable": false,
+                "assetId": 241635,
+                "rating": 70,
+                "itemType": "player",
+                "resourceId": 50573283,
+                "owners": 1,
+                "discardValue": 105,
+                "itemState": "free",
+                "cardsubtypeid": 2,
+                "lastSalePrice": 0,
+                "injuryType": "none",
+                "injuryGames": 0,
+                "preferredPosition": "LM",
+                "contract": 7,
+                "teamid": 111339,
+                "rareflag": 0,
+                "playStyle": 250,
+                "leagueId": 68,
+                "assists": 0,
+                "lifetimeAssists": 0,
+                "loyaltyBonus": 1,
+                "pile": 5,
+                "nation": 18,
+                "marketDataMinPrice": 150,
+                "marketDataMaxPrice": 5000,
+                "resourceGameYear": 2023,
+                "guidAssetId": "207ed89e-b372-43b8-a658-fc92d26e3981",
+                "attributeArray": [
+                    74,
+                    65,
+                    69,
+                    74,
+                    35,
+                    65
+                ],
+                "statsArray": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "lifetimeStatsArray": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "skillmoves": 3,
+                "weakfootabilitytypecode": 3,
+                "attackingworkrate": 2,
+                "defensiveworkrate": 0,
+                "preferredfoot": 1,
+                "possiblePositions": [
+                    "CM",
+                    "LM",
+                    "CAM",
+                    "LW"
+                ]
+            },
+            "tradeState": "expired",    "closed"/"active"/null
+            "buyNowPrice": 500,
+            "currentBid": 0,
+            "offers": 0,
+            "watched": true,
+            "bidState": "none",
+            "startingBid": 450,
+            "confidenceValue": 100,
+            "expires": -1,      0
+            "sellerName": null,
+            "sellerEstablished": 0,
+            "sellerId": 0,
+            "tradeOwner": true,
+            "tradeIdStr": "507487112179"
+        }
+        ,{}
+    ]
+    , "duplicateItemIdList": [
+        {
+            "itemId": 148750643734,
+            "duplicateItemId": 148169378203
+        }
+        ,{}
+    ]
+}
+
 
 {
     "credits": 957235,

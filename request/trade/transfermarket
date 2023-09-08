@@ -1,7 +1,7 @@
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
 $session.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62"
 Invoke-WebRequest -UseBasicParsing -Uri "https://utas.mob.v1.fut.ea.com/ut/game/fifa23/transfermarket?num=21&start=0&type=player&pos=ST&rarityIds=1&lev=gold&nat=54&leag=13&team=1&micr=150&macr=9000&minb=250&maxb=10000" `
--WebSession $session `
+-WebSession $session `                   https://utas.mob.v1.fut.ea.com/ut/game/fifa23/transfermarket?num=21&start=0&type=player&pos=ST&rarityIds=1&lev=gold&nat=54&leag=13&team=1&micr=150&macr=9000&minb=250&maxb=10000
 -Headers @{
 "Accept"="*/*"
   "Accept-Encoding"="gzip, deflate, br"

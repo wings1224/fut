@@ -2,6 +2,7 @@ import json
 from ApiInterface import ApiInterface
 import config
 import tools
+import numpy as np
 
 
 class User:
@@ -9,15 +10,7 @@ class User:
         self.sid = sid
         self.api = result = api if api is not None else ApiInterface(
             "https://utas.mob.v1.fut.ea.com/ut/", sid)
-        self.cfg_sbc = {
-            3503: {"player_total_numbers": 22, "player_numbers": 3, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
-            , 3500: {"player_total_numbers": 22, "player_numbers": 3, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
-            , 3054: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 0, "max_ovr": 64}
-            , 3056: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 65, "max_ovr": 74}
-            , 3263: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":11, "rare_player_numbers":0}
-            , 3394: {"player_total_numbers": 22, "player_numbers": 11, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 82, "common_player_numbers":6, "rare_player_numbers":5}
-            , 3340: {"player_total_numbers": 22, "player_numbers": 10, "sortby": "ovr", "sort": "asc", "min_ovr": 75, "max_ovr": 80}
-        }
+        self.cfg_sbc = config.G_SBC_CFG
         # init accountinfo
         # money
         credits_res = json.loads(self.api.credits())
@@ -72,7 +65,7 @@ class User:
         with open('player_list.json', 'w') as file:
             file.write(json.dumps(self.player_list))
 
-    def buy(self, pack_id):
+    def buy_pack(self, pack_id):
         res = self.api.purchased_items(purchased_type='buy', pack_id=pack_id)
         if config.E_CLIENT_ERROR_471 == res:
             res = self.api.purchased_items()
@@ -103,7 +96,7 @@ class User:
                 return False
         return res
 
-    def sell(self, arr_items):
+    def quick_sell(self, arr_items):
         res = self.api.delete_items(arr_items)
         if tools.is_valid_json(res):
             sell_res = json.loads(res)
@@ -280,7 +273,7 @@ class User:
     def aotobuypack(self, pack_id, times=5):
         start = 0
         while start < times:
-            res = self.buy(pack_id=pack_id)
+            res = self.buy_pack(pack_id=pack_id)
             if False == tools.is_valid_json(res):
                 print('buy pack {} failed!'.format(start))
                 print('*'*15)
@@ -350,14 +343,15 @@ class User:
 
         if len(arr_player) > 0:
             res = self.put(arr_player)
-            if False == res:
-                return res
+            # if False == res:
+            #     return res
             
-            self.player_list.update(list_player)
-            with open('player_list2.json', 'w') as file:
-                file.write(json.dumps(self.player_list))
+        self.player_list.update(list_player)
+        with open('player_list2.json', 'w') as file:
+            file.write(json.dumps(self.player_list))
+            
         if len(list_other) > 0 or len(list_dup_player) > 0:
-            self.sell(list(list_other.keys())+list(list_dup_player.keys()))
+            self.quick_sell(list(list_other.keys())+list(list_dup_player.keys()))
             if len(list_dup_player) > 0:
                 print("{} duplicate players sold.".format(len(list_dup_player)))
 
@@ -367,6 +361,23 @@ class User:
         print("market_list:", self.market_list)
 
 
+    def lowest_price(self):
+        times = 0
+        while True:
+            times+=1
+            print(times)
+            res = self.api.transfermarket(minb=200+100*(times%100))
+            res = json.loads(res)
+            # l = res['auctionInfo']
+            startingBid = []
+            for item in res['auctionInfo']:
+                startingBid.append(item['startingBid'])
+            print(f'min: {np.min(startingBid)}, max: {np.max(startingBid)}, mean: {np.mean(startingBid)}')
+            # sleep(1)
+        
+
 if __name__ == "__main__":
     # 创建一个用户实例
-    user1 = User()
+    api = ApiInterface("https://utas.mob.v1.fut.ea.com/ut/", config.G_SID)
+    user = User(config.G_SID, api)
+    user.lowest_price()
