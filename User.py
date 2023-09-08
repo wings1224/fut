@@ -2,6 +2,7 @@ import json
 from ApiInterface import ApiInterface
 import config
 import tools
+import numpy as np
 
 
 class User:
@@ -337,6 +338,23 @@ class User:
         print("market_list:", self.market_list)
 
 
+    def lowest_price(self):
+        times = 0
+        while True:
+            times+=1
+            print(times)
+            res = self.api.transfermarket(minb=200+100*(times%100))
+            res = json.loads(res)
+            # l = res['auctionInfo']
+            startingBid = []
+            for item in res['auctionInfo']:
+                startingBid.append(item['startingBid'])
+            print(f'min: {np.min(startingBid)}, max: {np.max(startingBid)}, mean: {np.mean(startingBid)}')
+            # sleep(1)
+        
+
 if __name__ == "__main__":
     # 创建一个用户实例
-    user1 = User()
+    api = ApiInterface("https://utas.mob.v1.fut.ea.com/ut/", config.G_SID)
+    user = User(config.G_SID, api)
+    user.lowest_price()
